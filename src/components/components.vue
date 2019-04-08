@@ -216,12 +216,10 @@
             </ul>
         </div>
         <div v-if="activeUI === 'Element-UI'">
-            <ul class="components-list">
-                <!--                 
-                <li draggable="true" @dragstart="dragStart" data-name="Header">
-                    <mt-header fixed title="Header"></mt-header>
+            <ul class="components-list element-ui">
+                <li draggable="true" @dragstart="dragStart" data-name="Input">
+                    <Input />
                 </li> 
-                -->
             </ul>
         </div>
         <div v-if="activeUI==='Common'">
@@ -249,6 +247,7 @@
 import museUiList from './list/muse-ui'
 import mintUiList from './list/mint-ui'
 import iViewUiList from './list/iview-ui'
+import elementUiList from './list/element-ui'
 export default {
     name: 'components',
     data() {
@@ -297,7 +296,8 @@ export default {
     components: {
         ...museUiList,
         ...mintUiList,
-        ...iViewUiList
+        ...iViewUiList,
+        ...elementUiList
     }
 }
 </script>

@@ -83,7 +83,6 @@ var handle = function(_attr, _slots) {
                         ${stringAttr}>
                         ${subContent}
                     </Input>`
-
     return { template, attributes, slots }
 }
 export default handle

@@ -30,13 +30,10 @@ const store = new Vuex.Store({
     },
     mutations: {
         setState(state, obj) {
-            // obj = mergeDeep(JSON.parse(JSON.stringify(state)), obj)
+            //obj = mergeDeep(JSON.parse(JSON.stringify(state)), obj)
             Object.assign(state, obj)
-
             //保存本地
             localStorage.store = JSON.stringify(state)
-
-
         }
     },
     actions: {

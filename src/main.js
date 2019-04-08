@@ -9,6 +9,10 @@ import './assets/css/global.css'
 import iView from 'iview'
 Vue.use(iView)
 
+//Element-UI
+import ElementUI from 'element-ui'
+Vue.use(ElementUI)
+
 //Mint-UI
 import { Toast, Indicator } from 'mint-ui'
 import 'mint-ui/lib/style.css'

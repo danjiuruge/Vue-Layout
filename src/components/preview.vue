@@ -21,7 +21,7 @@
         </mu-paper>
         <!-- 预览视图 -->
         <div ref="preview" v-show="previewMode==='pc'" class="preview-area" @click="clickPreview" @contextmenu="rightClick" @keyup.delete="del">
-            <div v-if="!item.parentId" :id="item.info.id" v-for="(item,index) in components"></div>
+        <div v-if="!item.parentId" :id="item.info.id" v-for="(item,index) in components"></div>
         </div>
         <iframe src="./#/preview/mobile" class="preview-mobile" v-if="previewMode==='mobile'"></iframe>
         <mu-content-block class="preview-tip" v-if="components.length===0">
@@ -183,7 +183,6 @@ export default {
             e.preventDefault()
         },
         drop(e) { //松开拖放,e是容器元素
-
             //CODE视图的文字拖动也会触发此事件，这里屏蔽掉
             if (e.target.className.indexOf('sound-code') !== -1 || e.target.className.indexOf('hljs') !== -1)
                 return
@@ -196,7 +195,6 @@ export default {
                 template,
                 attributes,
                 slots
-
             //true:嵌套行为
             if (isNest) {
                 //预览视图中选中组件后，current的值指向选中组件，为空{}就是未选
@@ -260,7 +258,6 @@ export default {
                 component = getTemplate(info)
                 if (!component.template)
                     throw '没有这个组件的模板'
-
                 let components = JSON.parse(JSON.stringify(this.components))
                 if (!this.insertPosition.position) {
 
@@ -310,15 +307,17 @@ export default {
 
         },
         getComponentNode(node) {
-            if (node && node.getAttribute('data-component-active') !== null)
+            //if (node && node.getAttribute('data-component-active') !== null){
+            //Mod by yb 2019/04/08 适配node.getAttribute返回值为NULL或空的情况。
+            if (node && !node.getAttribute('data-component-active')){
                 return node
+            }
             else {
                 if (node.parentElement)
                     return this.getComponentNode(node.parentElement)
                 else
                     return false
             }
-
         },
         clickPreview(e) {
             let target = e.target
@@ -399,11 +398,11 @@ export default {
             // 必需，勿删，会在ondrop中被重写
         },
         getSource(components) { //预览视图中所有组件的代码
-            let code = `<template><section>`
+            let code = `<template>`
             components.filter(component => !component.parentId).forEach(component => {
                 code += component.template
             })
-            code += `\n</section></template>`
+            code += `\n</template>`
                 //添加用户编辑的css
             let cssText = this.$store.state.css
             if (cssText) {
@@ -422,7 +421,6 @@ export default {
             code = code.replace(/ id=".*?"/g, '')
             code = code.replace(/ data-component-active/g, '')
             code = code.replace(/\n\n/g, '\n')
-
             return code
         },
         getParentComponent(component) {

@@ -13,7 +13,6 @@ var mount = function(id, _component) {
                     data[key] = _component.attributes[key].value
                 })
             }
-            
             if (component.uid) { //销毁旧实例
 
             }
@@ -29,7 +28,6 @@ var mount = function(id, _component) {
                     if (component) {
                         component.uid = this._uid
                     }
-
                     //添加选中效果
                     let info = _Vue.$store.state.currentComponent.info
                     if (!info)
